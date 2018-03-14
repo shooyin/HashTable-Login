@@ -109,9 +109,6 @@ void showForgotPasswordScreen(hashi hashy) {
 
 		if (username != "exit")
 			hashy.findPassword(username);
-		system("pause");
-		system("cls");
-		showForgotPasswordScreen(hashy);
 	}
 	system("pause");
 	system("cls");
