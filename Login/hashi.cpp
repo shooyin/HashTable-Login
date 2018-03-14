@@ -1,7 +1,7 @@
 #include "hashi.h"
 #include <fstream>
 
-hashi::hashi() 
+hashi::hashi()
 {
 	loadDatabase();
 }
@@ -30,8 +30,31 @@ void hashi::loadDatabase() {
 	else std::cout << "Unable to open file\n";
 }
 
+bool hashi::isDuplicate(std::string username)
+{
+	int index = Hash(username);
+
+	if (HashTable[index]->username == "empty") {
+		return false;
+	}
+	else {
+		user* userPtr = HashTable[index];
+
+		while (userPtr->next != NULL) {
+			if (userPtr->username == username) {
+				std::cout << username << " already exists" << std::endl;
+				return true;
+			}
+			
+			userPtr = userPtr->next;
+		}
+	}
+	return false;
+}
+
 void hashi::addUser(std::string username, std::string password)
 {
+	bool duplicate = false;
 	int index = Hash(username);
 
 	// If bucket is empty = Add it to initial bucket
@@ -45,25 +68,30 @@ void hashi::addUser(std::string username, std::string password)
 		n->username = username;
 		n->password = password;
 		n->next = NULL;
-		
+
 		// Traverse to end of bucket
 		while (userPtr->next != NULL) {
+			/*
+			if (userPtr->username == username) {
+				std::cout << username << " already exists" << std::endl;
+				duplicate = true;
+				return;
+			}
+			*/
 			userPtr = userPtr->next;
 		}
 
-		// Add temp to the next pointer of the last node
-		userPtr->next = n;
+		userPtr->next = n;	// Add temp to the next pointer of the last node
 	}
-	//addToTextFile(username, password);
 }
 
 void hashi::addToTextFile(std::string username, std::string password)
 {
 	std::ofstream logins("login_record.txt", std::ios::app);
 
-	if(logins.is_open())
+	if (logins.is_open())
 		logins << "\n" << username << "\t" << password;
-	else 
+	else
 		std::cout << "Unable to open file\n";
 
 	logins.close();
@@ -75,7 +103,7 @@ bool hashi::confirmUser(std::string username, std::string password) {
 
 	user* findPtr = HashTable[index];	// Pointer, starting at top of bucket
 
-	// Traverse
+										// Traverse
 	while (findPtr != NULL && findPtr->username != username
 		&& findPtr->password != password) {
 		findPtr = findPtr->next;
@@ -105,7 +133,7 @@ int hashi::numberOfUsersInIndex(int index)
 		user* userPtr = HashTable[index];
 
 		while (userPtr->next != NULL) {
-			count++; 
+			count++;
 			userPtr = userPtr->next;
 		}
 	}
@@ -180,7 +208,7 @@ void hashi::findPassword(std::string username)
 void hashi::removeUser(std::string username)
 {
 	int index = Hash(username);					// Index of bucket
-	
+
 	user* delPtr;
 	user* userPtr1 = NULL;
 	user* userPtr2 = NULL;
@@ -223,7 +251,7 @@ void hashi::removeUser(std::string username)
 		std::cout << username << " was not found\n";
 	}
 	//Case 3.2 - match is found
-	else{
+	else {
 		delPtr = userPtr1;
 		userPtr1 = userPtr1->next;
 		userPtr2->next = userPtr1;
@@ -276,4 +304,3 @@ int hashi::Hash(std::string key)
 
 	return index;
 }
-
