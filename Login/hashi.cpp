@@ -30,7 +30,7 @@ void hashi::loadDatabase() {
 	else std::cout << "Unable to open file\n";
 }
 
-bool hashi::isDuplicate(std::string username)
+bool hashi::hasDuplicate(std::string username)
 {
 	int index = Hash(username);
 
@@ -42,10 +42,8 @@ bool hashi::isDuplicate(std::string username)
 
 		while (userPtr->next != NULL) {
 			if (userPtr->username == username) {
-				std::cout << username << " already exists" << std::endl;
 				return true;
 			}
-			
 			userPtr = userPtr->next;
 		}
 	}
@@ -73,9 +71,9 @@ void hashi::addUser(std::string username, std::string password)
 		while (userPtr->next != NULL) {
 			/*
 			if (userPtr->username == username) {
-				std::cout << username << " already exists" << std::endl;
-				duplicate = true;
-				return;
+			std::cout << username << " already exists" << std::endl;
+			duplicate = true;
+			return;
 			}
 			*/
 			userPtr = userPtr->next;
@@ -263,11 +261,11 @@ void hashi::removeUser(std::string username)
 
 void hashi::removeFromTextFile(std::string username, std::string password) {
 
-	bool found = false;									// To avoid similar usernames
-	std::string line;									// Traverses login_record.txt
+	bool found = false;					// To avoid similar usernames
+	std::string line;					// Traverses login_record.txt
 	std::string search = username + "\t" + password;	// What we are looking for
-	std::ifstream logins("login_record.txt");			// Original file
-	std::ofstream temp("temp.txt");						// Temporary file
+	std::ifstream logins("login_record.txt");		// Original file
+	std::ofstream temp("temp.txt");				// Temporary file
 
 	if (logins.is_open() && temp.is_open()) {
 		while (getline(logins, line)) {
