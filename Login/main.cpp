@@ -23,7 +23,7 @@ int main() {
 }
 
 void showOpeningScreen(hashi hashy) {
-	string choice;
+	char choice = ' ';
 	bool lock = true;
 
 	cout << "Apple Bottom Jeans\n\n";
@@ -31,41 +31,27 @@ void showOpeningScreen(hashi hashy) {
 	cout << "(2) Create Account\n";
 	cout << "(3) Forgot Password\n";
 	cout << "(4) Exit\n\n";
+	cout << "Choice: ";
+	cin >> choice;
 
-	while (lock == true) {
-		cout << "Choice: ";
-		cin >> choice;
-
-		if (choice == "1" || choice == "login" || choice == "Login") {
-			lock = false;
-			system("cls");
-			showLoginScreen(hashy);
-		}
-		else if (choice == "2" || choice == "Create Account") {
-			lock = false;
-			system("cls");
-			showCreateAccountScreen(hashy);
-		}
-		else if (choice == "3" || choice == "Forgot Password") {
-			lock = false;
-			system("cls");
-			showForgotPasswordScreen(hashy);
-		}
-		else if (choice == "4" || choice == "exit") {
-			lock = false;
-			cout << "\nGoodbye!\n" << endl;
-			system("exit");
-		}
-		else if (choice == "5" || choice == "debug") {
-			lock = false;
-			system("cls");
-			showAdminScreen(hashy);
-		}
-		else {
-			lock = false;
-			system("cls");
-			showOpeningScreen(hashy);
-		}
+	switch (choice) {
+	case '1': system("cls");
+			  showLoginScreen(hashy);
+			  break;
+	case '2': system("cls");
+			  showCreateAccountScreen(hashy);
+			  break;
+	case '3': system("cls");
+			  showForgotPasswordScreen(hashy);
+			  break;
+	case '4': cout << "\nGoodbye!\n" << endl;
+			  system("exit");
+			  break;
+	case '5': system("cls");
+			  showAdminScreen(hashy);
+			  break;
+	default:  system("cls");
+			  showOpeningScreen(hashy);
 	}
 }
 
@@ -78,6 +64,11 @@ void showLoginScreen(hashi hashy) {
 	cin >> password;
 
 	if (hashy.confirmUser(username, password) == true) {
+		/*
+		This is where you put your code in Tran,
+		replace this area and the comment with the start
+		of the Database menu
+		  */
 		cout << "Passed" << endl;
 	}
 
@@ -94,15 +85,23 @@ void showCreateAccountScreen(hashi hashy) {
 	cout << "Password: ";
 	cin >> password;
 
-	hashy.addUser(username, password);
-	hashy.addToTextFile(username, password);
-	cout << "\n\n" << username << " was successfully created" << endl;
+	if (hashy.hasDuplicate(username)) {
+		cout << "\n\n" << username << " already exists" << endl;
+	}
+	else {
+		hashy.addUser(username, password);
+		hashy.addToTextFile(username, password);
+		cout << "\n\n" << username << " was successfully created" << endl;
+	}
+	system("pause");
 	system("cls");
-	showLoginScreen(hashy);
+	showOpeningScreen(hashy);
 }
 
 void showForgotPasswordScreen(hashi hashy) {
 	string username;
+
+	cout << "Forgot Your Password?\n\n";
 
 	while (username != "exit") {
 		cout << "Search: ";
@@ -110,7 +109,13 @@ void showForgotPasswordScreen(hashi hashy) {
 
 		if (username != "exit")
 			hashy.findPassword(username);
+		system("pause");
+		system("cls");
+		showForgotPasswordScreen(hashy);
 	}
+	system("pause");
+	system("cls");
+	showOpeningScreen(hashy);
 }
 
 /*
