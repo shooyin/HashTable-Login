@@ -68,17 +68,9 @@ void hashi::addUser(std::string username, std::string password)
 		n->next = NULL;
 
 		// Traverse to end of bucket
-		while (userPtr->next != NULL) {
-			/*
-			if (userPtr->username == username) {
-			std::cout << username << " already exists" << std::endl;
-			duplicate = true;
-			return;
-			}
-			*/
+		while (userPtr->next != NULL)
 			userPtr = userPtr->next;
-		}
-
+		
 		userPtr->next = n;	// Add temp to the next pointer of the last node
 	}
 }
@@ -160,6 +152,12 @@ void hashi::printTable()
 	}
 }
 
+/*
+Prints each user of specified bucket:
+- Index of Bucket
+- Username
+- Password
+*/
 void hashi::printUsersInIndex(int index)
 {
 	user* userPtr = HashTable[index];
@@ -181,6 +179,10 @@ void hashi::printUsersInIndex(int index)
 	}
 }
 
+/*
+Finds password of a specified username
+Else, username not found
+*/
 void hashi::findPassword(std::string username)
 {
 	int index = Hash(username);					// Index of bucket
@@ -203,6 +205,9 @@ void hashi::findPassword(std::string username)
 		std::cout << username << " was not found" << std::endl;
 }
 
+/*
+Remove particular username and password
+*/
 void hashi::removeUser(std::string username)
 {
 	int index = Hash(username);					// Index of bucket
@@ -261,11 +266,11 @@ void hashi::removeUser(std::string username)
 
 void hashi::removeFromTextFile(std::string username, std::string password) {
 
-	bool found = false;					// To avoid similar usernames
-	std::string line;					// Traverses login_record.txt
+	bool found = false;									// To avoid similar usernames
+	std::string line;									// Traverses login_record.txt
 	std::string search = username + "\t" + password;	// What we are looking for
-	std::ifstream logins("login_record.txt");		// Original file
-	std::ofstream temp("temp.txt");				// Temporary file
+	std::ifstream logins("login_record.txt");			// Original file
+	std::ofstream temp("temp.txt");						// Temporary file
 
 	if (logins.is_open() && temp.is_open()) {
 		while (getline(logins, line)) {
