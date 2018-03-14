@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <fstream>
 #include <cstring>
 #include <string>
@@ -76,7 +76,7 @@ void showLoginScreen(hashi hashy) {
 	cin >> username;
 	cout << "Password: ";
 	cin >> password;
-		
+
 	if (hashy.confirmUser(username, password) == true) {
 		cout << "Passed" << endl;
 	}
@@ -125,6 +125,7 @@ void showAdminScreen(hashi hashy) {
 
 	cout << "1. Print Table\n";
 	cout << "2. Remove User\n";
+	cout << "3. Return to Main Menu\n";
 
 	while (lock == true) {
 		cin >> choice;
