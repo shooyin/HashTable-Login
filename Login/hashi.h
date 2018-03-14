@@ -20,6 +20,7 @@ public:
 	hashi();
 	int Hash(std::string Key);
 	void loadDatabase();
+	bool isDuplicate(std::string username);
 	void addUser(std::string username, std::string password);
 	void addToTextFile(std::string username, std::string password);
 	bool confirmUser(std::string username, std::string password);
