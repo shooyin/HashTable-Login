@@ -95,10 +95,16 @@ void showCreateAccountScreen(hashi hashy) {
 	showOpeningScreen(hashy);
 }
 
+/*
+Displays the "Forgot Password" menu
+Type the username to search the password for.
+Type "exit" to return back to the Opening Screen
+*/
 void showForgotPasswordScreen(hashi hashy) {
 	string username;
 
-	cout << "\t\tForgot Your Password?\n\n";
+	cout << "\t\tForgot Your Password?\n";
+	cout << "\t\tNOTE: \"exit\" to return to Opening Menu\n\n";
 
 	while (username != "exit") {
 		cout << "\n\t\tSearch: ";
@@ -156,12 +162,14 @@ void showAdminScreen(hashi hashy) {
 		else if (choice == 3) {
 			int index;
 			lock = false;
-			cout << "\nWhich Index would you like to look through (0-4)? ";
+			cout << "\nWhich Index would you like to look through (0-3)? ";
 			cin >> index;
-			hashy.printUsersInIndex(index);
-			system("pause");
-			system("cls");
-			showAdminScreen(hashy);
+			if (index >= 0 && index <= 3) {
+				hashy.printUsersInIndex(index);
+				system("pause");
+				system("cls");
+				showAdminScreen(hashy);
+			}
 		}
 		else if (choice == 4) {
 			lock = false;
