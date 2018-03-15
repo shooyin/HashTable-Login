@@ -127,9 +127,11 @@ void showAdminScreen(hashi hashy) {
 	cout << "\t\t   ****** DEBUG ****** \n";
 	cout << "1. Print Table\n";
 	cout << "2. Remove User\n";
-	cout << "3. Return to Main Menu\n";
+	cout << "3. Number of Users in Index\n";
+	cout << "4. Return to Main Menu\n";
 
 	while (lock == true) {
+		cout << "Choice: ";
 		cin >> choice;
 
 		if (choice == 1) {
@@ -152,6 +154,16 @@ void showAdminScreen(hashi hashy) {
 			showAdminScreen(hashy);
 		}
 		else if (choice == 3) {
+			int index;
+			lock = false;
+			cout << "\nWhich Index would you like to look through (0-4)? ";
+			cin >> index;
+			hashy.printUsersInIndex(index);
+			system("pause");
+			system("cls");
+			showAdminScreen(hashy);
+		}
+		else if (choice == 4) {
 			lock = false;
 			system("cls");
 			showOpeningScreen(hashy);
