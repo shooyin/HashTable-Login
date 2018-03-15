@@ -29,7 +29,7 @@ void showOpeningScreen(hashi hashy) {
 	cout << "\n\n\t\t   Please Select From The Following Menu ";
 	cout << "\n\n\t\t\t(1) Login\n";
 	cout << "\n\n\t\t\t(2) Create Account\n";
-	cout << "\n\n\t\t\t(3) Forgot Password\n";
+	cout << "\n\n\t\t\t(3) Forgot Password?\n";
 	cout << "\n\n\t\t\t(4) Exit\n\n";
 	cout << "\n\n\t\t\tChoice: ";
 	cin >> choice;
@@ -63,9 +63,9 @@ void showLoginScreen(hashi hashy) {
 	cin >> username;
 	cout << "\n\n\t\tPassword: ";
 	cin >> password;
-
+	cout << "\n\t\t";
 	if (hashy.confirmUser(username, password) == true) {
-		cout << "\n\n\t\tPassed" << endl;
+		cout << "\n\t\tPassed" << endl;
 	}
 
 	system("pause");
