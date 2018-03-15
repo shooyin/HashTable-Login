@@ -12,6 +12,7 @@ void showCreateAccountScreen(hashi hashy);
 void showForgotPasswordScreen(hashi hashy);
 void showAdminScreen(hashi hashy);
 
+// Main function
 int main() {
 	hashi hashy;
 
@@ -21,6 +22,10 @@ int main() {
 	return 0;
 }
 
+/*
+Displays opening screen
+Select user choice of menu options
+*/
 void showOpeningScreen(hashi hashy) {
 	char choice = ' ';
 	bool lock = true;
@@ -55,6 +60,12 @@ void showOpeningScreen(hashi hashy) {
 	}
 }
 
+/*
+Shows the login screen
+Requests user to input their username-password
+If successful, enter the database
+If unsuccessful, return to opening screen
+*/
 void showLoginScreen(hashi hashy) {
 	string username, password;
 
